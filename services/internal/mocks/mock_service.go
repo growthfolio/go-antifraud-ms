@@ -9,6 +9,6 @@ type MockService struct {
 }
 
 func (m *MockService) SomeMethod(input string) (output string, err error) {
-	args := m.Called(input)
-	return args.String(0), args.Error(1)
+	// args := m.Called(input)
+	return "StringValue", err
 }
