@@ -1,9 +1,10 @@
 package controller
 
 import (
-	"go-antifraud-ms/services/internal/app/models"
-	"go-antifraud-ms/services/internal/app/service"
 	"net/http"
+
+	"github.com/felipemacedo1/go-antifraud-ms/services/internal/app/models"
+	"github.com/felipemacedo1/go-antifraud-ms/services/internal/app/service"
 
 	"github.com/gin-gonic/gin"
 )

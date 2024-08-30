@@ -1,11 +1,10 @@
-// cmd/main.go
 package main
 
 import (
-	"go-antifraud-ms/services/internal/app/controller"
-	"go-antifraud-ms/services/internal/app/service"
 	"log"
 
+	"github.com/felipemacedo1/go-antifraud-ms/services/internal/app/controller/"
+	"github.com/felipemacedo1/go-antifraud-ms/services/internal/app/service/"
 	"github.com/gin-gonic/gin"
 )
 

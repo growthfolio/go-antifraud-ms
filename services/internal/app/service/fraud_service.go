@@ -1,9 +1,10 @@
 package service
 
 import (
-	"go-antifraud-ms/services/internal/app/models"
-	"go-antifraud-ms/utils"
 	"strconv"
+
+	"github.com/felipemacedo1/go-antifraud-ms/services/internal/app/models"
+	"github.com/felipemacedo1/go-antifraud-ms/services/utils"
 )
 
 // CheckFraudService define o serviço de verificação de fraude
