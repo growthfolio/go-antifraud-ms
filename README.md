@@ -12,13 +12,14 @@
 - [Features](#features)
 - [Architecture](#architecture)
 - [Installation](#installation)
+<!--
 - [Usage](#usage)
-- [Configuration](#configuration)   🚧 Under Development 🚧
-- [API Endpoints](#api-endpoints)   🚧 Under Development 🚧
-- [Testing](#testing)               🚧 Under Development 🚧
-- [Contributing](#contributing)     🚧 Under Development 🚧
-- [License](#license)               🚧 Under Development 🚧
-
+- [Configuration](#configuration)  
+- [API Endpoints](#api-endpoints)   
+- [Testing](#testing)               
+- [Contributing](#contributing)     
+- [License](#license)               
+-->
 ## Features
 
 - **Real-time transaction monitoring**: Analyzes transactions as they occur to detect potential fraud.
