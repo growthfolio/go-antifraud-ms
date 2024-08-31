@@ -13,11 +13,11 @@
 - [Architecture](#architecture)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Configuration](#configuration)
-- [API Endpoints](#api-endpoints)
-- [Testing](#testing)
-- [Contributing](#contributing)
-- [License](#license)
+- [Configuration](#configuration)   🚧 Under Development 🚧
+- [API Endpoints](#api-endpoints)   🚧 Under Development 🚧
+- [Testing](#testing)               🚧 Under Development 🚧
+- [Contributing](#contributing)     🚧 Under Development 🚧
+- [License](#license)               🚧 Under Development 🚧
 
 ## Features
 
