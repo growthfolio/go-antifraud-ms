@@ -3,8 +3,8 @@ package controller
 import (
 	"net/http"
 
-	"github.com/felipemacedo1/go-antifraud-ms/services/internal/app/models"
-	"github.com/felipemacedo1/go-antifraud-ms/services/internal/app/service"
+	"github.com/felipemacedo1/go-antifraud-ms/pkg/app/models"
+	"github.com/felipemacedo1/go-antifraud-ms/pkg/app/service"
 
 	"github.com/gin-gonic/gin"
 )
@@ -26,7 +26,7 @@ func (fc *FraudController) CheckFraudHandler(c *gin.Context) {
 		return
 	}
 
-	result, proba, err := fc.Service.Execute(transaction)
+	result, err := fc.Service.Execute(transaction)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -34,6 +34,5 @@ func (fc *FraudController) CheckFraudHandler(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"result": result,
-		"proba":  proba,
 	})
 }
