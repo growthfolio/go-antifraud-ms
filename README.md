@@ -1,119 +1,185 @@
+# 🛡️ Go Antifraud Microservice - Detecção de Fraudes
 
-# go-antifraud-ms
+## 🎯 Objetivo de Aprendizado
+Microserviço desenvolvido em Go para estudar **detecção de fraudes** em tempo real e **machine learning aplicado**. Implementa algoritmos de análise comportamental e padrões suspeitos em transações financeiras, aplicando **Clean Architecture** e **observabilidade**.
 
-🚧 **Under Development** 🚧
+## 🛠️ Tecnologias Utilizadas
+- **Linguagem:** Go
+- **Arquitetura:** Clean Architecture, Microservices
+- **Machine Learning:** Algoritmos de detecção de anomalias
+- **Monitoramento:** Logging estruturado, métricas
+- **Containerização:** Docker
+- **Banco de dados:** PostgreSQL, Redis (cache)
+- **Comunicação:** REST API, gRPC
 
-**Note**: This project is currently under active development. Features and functionalities may change as the project progresses.
+## 🚀 Demonstração
+```go
+// Análise de transação em tempo real
+type TransactionAnalysis struct {
+    TransactionID string    `json:"transaction_id"`
+    Amount        float64   `json:"amount"`
+    RiskScore     float64   `json:"risk_score"`
+    IsFraud       bool      `json:"is_fraud"`
+    Reasons       []string  `json:"reasons"`
+}
 
-**go-antifraud-ms** is a microservice built in Go designed to detect and prevent fraudulent transactions in real-time. This project leverages robust algorithms and machine learning techniques to identify suspicious activities and ensure the security of financial transactions.
-
-## Table of Contents
-
-- [Features](#features)
-- [Architecture](#architecture)
-- [Installation](#installation)
-<!--
-- [Usage](#usage)
-- [Configuration](#configuration)  
-- [API Endpoints](#api-endpoints)   
-- [Testing](#testing)               
-- [Contributing](#contributing)     
-- [License](#license)               
--->
-## Features
-
-- **Real-time transaction monitoring**: Analyzes transactions as they occur to detect potential fraud.
-- **Scalable microservice**: Built to handle high transaction volumes with low latency.
-- **Modular architecture**: Easily extend or modify specific components like detection algorithms or data sources.
-- **Dockerized**: Fully containerized for easy deployment and scaling.
-- **Logging and Monitoring**: Integrated logging for tracking system behavior and transaction flows.
-
-## Architecture
-
-The project is structured into several modules:
-
-- **cmd/**: Entry point for the application.
-- **api/**: Handles the HTTP server and routing for API requests.
-- **antifraud/**: Core logic for fraud detection.
-- **config/**: Configuration management for different environments.
-- **database/**: Database models and interaction.
-- **logger/**: Centralized logging configuration.
-- **server/**: Server setup and initialization.
-- **utils/**: Utility functions and helpers.
-
-## Installation
-
-To get started with `go-antifraud-ms`, follow these steps:
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/felipemacedo1/go-antifraud-ms.git
-   ```
-
-2. Navigate to the project directory:
-
-   ```bash
-   cd go-antifraud-ms
-   ```
-
-3. Build the project:
-
-   ```bash
-   go build -o antifraud-ms cmd/main.go
-   ```
-
-4. Run the service:
-
-   ```bash
-   ./antifraud-ms
-   ```
-<!--
-Alternatively, you can use Docker:
-
-```bash
-docker build -t go-antifraud-ms .
-docker run -p 8080:8080 go-antifraud-ms
+// POST /api/v1/transactions/analyze
+{
+  "transaction_id": "tx_123456",
+  "amount": 5000.00,
+  "merchant": "Online Store",
+  "location": "BR",
+  "timestamp": "2024-01-15T10:30:00Z"
+}
 ```
 
-## Usage
-
-Once the service is running, you can send API requests to test the antifraud functionalities.
-
-For example, to check a transaction:
-
-```bash
-curl -X POST http://localhost:8080/api/v1/transactions/check -d '{"transaction_id":"12345","amount":100.00,"currency":"USD","timestamp":"2024-08-30T12:34:56Z"}'
+## 📁 Estrutura do Projeto
+```
+go-antifraud-ms/
+├── cmd/
+│   └── main.go                # Entry point
+├── pkg/
+│   ├── antifraud/            # Core fraud detection
+│   │   ├── analyzer.go       # Analysis engine
+│   │   ├── rules.go          # Business rules
+│   │   └── ml_models.go      # ML algorithms
+│   ├── api/                  # HTTP handlers
+│   ├── config/               # Configuration
+│   ├── database/             # Data persistence
+│   ├── logger/               # Structured logging
+│   └── server/               # Server setup
+├── scripts/                  # Deployment scripts
+└── docker-compose.yml        # Local development
 ```
 
-## Configuration
+## 💡 Principais Aprendizados
 
-Configuration is handled via environment variables defined in the `.env` file. Key configurations include:
+### 🔍 Detecção de Fraudes
+- **Análise comportamental:** Padrões de usuário anômalos
+- **Regras de negócio:** Limites e validações automáticas
+- **Machine learning:** Algoritmos de classificação
+- **Real-time processing:** Análise em tempo real
+- **Risk scoring:** Sistema de pontuação de risco
 
-- `DATABASE_HOST`
-- `DATABASE_PORT`
-- `DATABASE_USER`
-- `DATABASE_PASSWORD`
-- `DATABASE_NAME`
-- `LOG_LEVEL`
+### 🏗️ Arquitetura de Microserviços
+- **Single responsibility:** Foco específico em antifraude
+- **Scalability:** Capacidade de escalar independentemente
+- **Resilience:** Tolerância a falhas e degradação graceful
+- **Observability:** Logs, métricas e tracing distribuído
+- **API design:** Interfaces bem definidas
 
-## API Endpoints
+### 🤖 Machine Learning Integration
+- **Feature engineering:** Extração de características relevantes
+- **Model training:** Treinamento com dados históricos
+- **Real-time inference:** Predições em tempo real
+- **Model versioning:** Versionamento de modelos
+- **Performance monitoring:** Monitoramento de acurácia
 
-- **POST /api/v1/transactions/check**: Check a transaction for potential fraud.
+## 🧠 Conceitos Técnicos Estudados
 
-## Testing
+### 1. **Fraud Detection Engine**
+```go
+type FraudAnalyzer struct {
+    ruleEngine    RuleEngine
+    mlModel       MLModel
+    riskThreshold float64
+}
 
-Unit tests are located in the `tests/` directory. Run tests with:
-
-```bash
-go test ./...
+func (fa *FraudAnalyzer) AnalyzeTransaction(tx Transaction) (*Analysis, error) {
+    // Rule-based analysis
+    ruleScore := fa.ruleEngine.Evaluate(tx)
+    
+    // ML-based analysis
+    mlScore := fa.mlModel.Predict(tx.Features())
+    
+    // Combined risk score
+    finalScore := (ruleScore + mlScore) / 2
+    
+    return &Analysis{
+        RiskScore: finalScore,
+        IsFraud:   finalScore > fa.riskThreshold,
+        Reasons:   fa.generateReasons(tx, ruleScore, mlScore),
+    }, nil
+}
 ```
 
-## Contributing
+### 2. **Business Rules Engine**
+```go
+type Rule interface {
+    Evaluate(tx Transaction) (score float64, reason string)
+}
 
-Contributions are welcome! Please fork this repository and submit a pull request with your changes.
+type AmountRule struct {
+    MaxAmount float64
+}
 
-## License
+func (r *AmountRule) Evaluate(tx Transaction) (float64, string) {
+    if tx.Amount > r.MaxAmount {
+        return 0.8, "Transaction amount exceeds limit"
+    }
+    return 0.0, ""
+}
+```
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
--->
+### 3. **Real-time Processing**
+```go
+func (s *Server) handleTransactionAnalysis(w http.ResponseWriter, r *http.Request) {
+    var tx Transaction
+    if err := json.NewDecoder(r.Body).Decode(&tx); err != nil {
+        http.Error(w, "Invalid request", http.StatusBadRequest)
+        return
+    }
+    
+    // Async analysis for performance
+    analysis, err := s.analyzer.AnalyzeTransaction(tx)
+    if err != nil {
+        s.logger.Error("Analysis failed", "error", err)
+        http.Error(w, "Analysis failed", http.StatusInternalServerError)
+        return
+    }
+    
+    // Log for audit trail
+    s.logger.Info("Transaction analyzed", 
+        "tx_id", tx.ID, 
+        "risk_score", analysis.RiskScore,
+        "is_fraud", analysis.IsFraud)
+    
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(analysis)
+}
+```
+
+## 🚧 Desafios Enfrentados
+1. **False positives:** Balanceamento entre segurança e usabilidade
+2. **Real-time performance:** Latência baixa em análises complexas
+3. **Model accuracy:** Melhoria contínua dos algoritmos
+4. **Data quality:** Tratamento de dados inconsistentes
+5. **Scalability:** Handling de alto volume de transações
+
+## 📚 Recursos Utilizados
+- [Fraud Detection Techniques](https://www.sciencedirect.com/topics/computer-science/fraud-detection)
+- [Machine Learning for Fraud Detection](https://towardsdatascience.com/machine-learning-for-fraud-detection-3b8b8b8b8b8b)
+- [Microservices Patterns](https://microservices.io/patterns/)
+- [Go Best Practices](https://golang.org/doc/effective_go.html)
+
+## 📈 Próximos Passos
+- [ ] Implementar deep learning models
+- [ ] Adicionar análise de grafos de relacionamentos
+- [ ] Criar dashboard de monitoramento
+- [ ] Implementar feedback loop para ML
+- [ ] Adicionar análise de comportamento temporal
+- [ ] Integrar com sistemas de pagamento
+
+## 🔗 Projetos Relacionados
+- [AMQP Transactions MS](../amqp-transactions-ms/) - Processamento de transações
+- [Go PriceGuard API](../go-priceguard-api/) - API Go com Clean Architecture
+- [CryptoTool](../CryptoTool/) - Segurança e criptografia
+
+---
+
+**Desenvolvido por:** Felipe Macedo  
+**Contato:** contato.dev.macedo@gmail.com  
+**GitHub:** [FelipeMacedo](https://github.com/felipemacedo1)  
+**LinkedIn:** [felipemacedo1](https://linkedin.com/in/felipemacedo1)
+
+> 💡 **Reflexão:** Este projeto proporcionou compreensão profunda sobre segurança financeira e machine learning aplicado. A implementação de sistemas de detecção de fraudes demonstrou a importância da análise em tempo real e da arquitetura resiliente.
